@@ -4,20 +4,16 @@
     {
       "src": "main.py",
       "use": "@vercel/python",
-      "config": { 
+      "config": {
+        "runtime": "python3.9",
         "maxLambdaSize": "15mb",
-        "includeFiles": ["static/**"]
+        "includeFiles": ["static/**", "models/**"],
+        "installCommand": "pip install --upgrade pip && pip install tensorflow==2.10.0 --no-cache-dir"
       }
     }
   ],
   "routes": [
-    {
-      "src": "/static/(.*)",
-      "dest": "/static/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "main.py"
-    }
+    {"src": "/static/(.*)", "dest": "/static/$1"},
+    {"src": "/(.*)", "dest": "main.py"}
   ]
 }
