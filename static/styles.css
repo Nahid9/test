@@ -1,0 +1,199 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #f5f5f5;
+}
+
+.container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.crop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.crop-card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    text-decoration: none;
+    color: #333;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid #e0e0e0;
+}
+
+.crop-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+.crop-icon {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+/* Shared styles for classifier pages */
+.upload-box {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f0f0f0;
+    border-radius: 8px;
+}
+
+.image-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.image-box {
+    margin: 10px;
+    text-align: center;
+    flex: 1;
+    min-width: 300px;
+}
+
+.image-box img {
+    max-width: 500px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.error {
+    color: red;
+    padding: 10px;
+    background-color: #ffeeee;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.confidence-meter {
+    margin: 15px 0;
+    width: 100%;
+}
+
+.confidence-bar {
+    height: 25px;
+    background-color: #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 5px 0;
+}
+
+.confidence-progress {
+    height: 100%;
+    background: linear-gradient(to right, #4CAF50, #8BC34A);
+    width: 0%;
+    transition: width 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.confidence-value {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.confidence-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.back-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 8px 16px;
+    background-color: #f0f0f0;
+    color: #333;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: #e0e0e0;
+}
+
+
+/* Recommendation System Styles */
+.recommendation-box {
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.recommendation {
+    padding: 15px;
+    border-left: 4px solid;
+    margin: 10px 0;
+}
+
+.recommendation.warning {
+    background-color: #FFF3E0;
+    border-color: #FFA000;
+}
+
+.recommendation.urgent {
+    background-color: #FFEBEE;
+    border-color: #F44336;
+}
+
+.recommendation.healthy {
+    background-color: #E8F5E9;
+    border-color: #4CAF50;
+}
+
+.recommendation h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.recommendation ul {
+    padding-left: 20px;
+    margin-bottom: 0;
+}
+
+.recommendation-list {
+    margin: 10px 0;
+    line-height: 1.6;
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ display_name }}</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ display_name }}</h1>
+        
+        <a href="/" class="back-button">← Back to Crop Selection</a>
+        
+        <form action="/predict/potato" method="post" enctype="multipart/form-data">
+            <div class="upload-box">
+                <input type="file" name="file" accept="image/*" required>
+                <br><br>
+                <button type="submit">Analyze</button>
+            </div>
+        </form>
+
+        {% if prediction %}
+            <div class="result">
+                <h3>🔍 Prediction Result:</h3>
+                <p><strong>Disease:</strong> {{ prediction }}</p>
+                
+                <div class="confidence-meter">
+                    <div class="confidence-label">
+                        <span>Confidence:</span>
+                        <span class="confidence-value">{{ confidence }}%</span>
+                    </div>
+                    <div class="confidence-bar">
+                        <div class="confidence-progress" style="width: {{ confidence }}%;">
+                            {{ confidence }}%
+                        </div>
+                    </div>
+                </div>
+                
+                {% if explanation_plot %}
+                    <div class="image-container">
+                        <div class="image-box">
+                            <h4>Image Explanation</h4>
+                            <img src="data:image/png;base64,{{ explanation_plot }}" alt="Original and Explanation">
+                        </div>
+                    </div>
+                {% endif %}
+
+                <!-- Potato-specific recommendations -->
+                <div class="recommendation-box">
+                    {% if "Early Blight" in prediction %}
+                        <div class="recommendation warning">
+                            <h4>🍂 Recommended Action for Early Blight:</h4>
+                            <div class="recommendation-list">
+                                Apply copper-based fungicides weekly<br>
+                                Remove affected leaves carefully<br>
+                                Improve air circulation around plants
+                            </div>
+                        </div>
+                    {% elif "Late Blight" in prediction %}
+                        <div class="recommendation urgent">
+                            <h4>🍂 Immediate Action for Late Blight:</h4>
+                            <div class="recommendation-list">
+                                Apply chlorothalonil-based fungicide immediately<br>
+                                Destroy severely infected plants<br>
+                                Avoid overhead watering
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="recommendation healthy">
+                            <h4>🌱 Healthy Plant Maintenance:</h4>
+                            <div class="recommendation-list">
+                                Continue current care routine<br>
+                                Monitor weekly for early signs<br>
+                                Maintain proper spacing between plants
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <div class="error">
+                <p>{{ error }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

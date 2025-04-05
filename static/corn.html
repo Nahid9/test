@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ display_name }}</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ display_name }}</h1>
+        
+        <a href="/" class="back-button">← Back to Crop Selection</a>
+        
+        <form action="/predict/corn" method="post" enctype="multipart/form-data">
+            <div class="upload-box">
+                <input type="file" name="file" accept="image/*" required>
+                <br><br>
+                <button type="submit">Analyze</button>
+            </div>
+        </form>
+
+        {% if prediction %}
+            <div class="result">
+                <h3>🔍 Prediction Result:</h3>
+                <p><strong>Disease:</strong> {{ prediction }}</p>
+                
+                <div class="confidence-meter">
+                    <div class="confidence-label">
+                        <span>Confidence:</span>
+                        <span class="confidence-value">{{ confidence }}%</span>
+                    </div>
+                    <div class="confidence-bar">
+                        <div class="confidence-progress" style="width: {{ confidence }}%;">
+                            {{ confidence }}%
+                        </div>
+                    </div>
+                </div>
+                
+                {% if explanation_plot %}
+                    <div class="image-container">
+                        <div class="image-box">
+                            <h4>Image Explanation</h4>
+                            <img src="data:image/png;base64,{{ explanation_plot }}" alt="Original and Explanation">
+                        </div>
+                    </div>
+                {% endif %}
+
+                <!-- Corn-specific recommendations at the end -->
+                <div class="recommendation-box">
+                    {% if "Common Rust" in prediction %}
+                        <div class="recommendation warning">
+                            <h4>🍂 Recommended Action for Common Rust:</h4>
+                            <div class="recommendation-list">
+                                Apply fungicides containing triazoles<br>
+                                Remove infected plant debris after harvest<br>
+                                Plant resistant varieties next season
+                            </div>
+                        </div>
+                    {% elif "Gray Leaf Spot" in prediction %}
+                        <div class="recommendation urgent">
+                            <h4>🍂 Immediate Action for Gray Leaf Spot:</h4>
+                            <div class="recommendation-list">
+                                Apply strobilurin fungicides immediately<br>
+                                Increase spacing between plants<br>
+                                Avoid working in wet fields
+                            </div>
+                        </div>
+                    {% elif "Leaf Blight" in prediction %}
+                        <div class="recommendation urgent">
+                            <h4>🍂 Immediate Action for Leaf Blight:</h4>
+                            <div class="recommendation-list">
+                                Apply chlorothalonil or mancozeb fungicides<br>
+                                Rotate crops with non-host plants<br>
+                                Destroy infected crop residue
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="recommendation healthy">
+                            <h4>🌱 Healthy Plant Maintenance:</h4>
+                            <div class="recommendation-list">
+                                Continue regular monitoring<br>
+                                Maintain balanced fertilization<br>
+                                Ensure proper irrigation practices
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <div class="error">
+                <p>{{ error }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
