@@ -8,7 +8,7 @@
         "runtime": "python3.9",
         "maxLambdaSize": "15mb",
         "includeFiles": ["static/**", "models/**"],
-        "installCommand": "pip install --upgrade pip && pip install tensorflow==2.10.0 --no-cache-dir"
+        "installCommand": "python -m pip install --upgrade pip==20.3.4 && pip install tensorflow==2.10.0 --no-cache-dir -t . && pip install -r requirements.txt --no-cache-dir -t ."
       }
     }
   ],
